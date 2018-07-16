@@ -1,5 +1,6 @@
 package com.passionproject.project_spitball20.controller;
 
+import com.passionproject.project_spitball20.model.User;
 import com.passionproject.project_spitball20.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,19 +18,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
-//    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public ResponseEntity<User> registerUser(@RequestBody User newUser) {
-//        User user = new User();
-//        HttpStatus status = HttpStatus.CONFLICT;
-//        if(userService.findEmail(newUser.getEmail()).equals(null)) {
-//            user = userService.save(newUser);
-//            status  = HttpStatus.CREATED;
-//        }
-//
-//        return new ResponseEntity<>(user, new HttpHeaders(), status);
-//
-//    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<User> registerUser(@RequestBody User newUser) {
+        User user = new User();
+        HttpStatus status = HttpStatus.CONFLICT;
+        if(userService.findEmail(newUser.getEmail()).equals(null)) {
+            user = userService.save(newUser);
+            status  = HttpStatus.CREATED;
+        }
+
+        return new ResponseEntity<>(user, new HttpHeaders(), status);
+
+    }
 }
