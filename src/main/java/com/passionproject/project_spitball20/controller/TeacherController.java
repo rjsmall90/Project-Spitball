@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("profile")
+@RequestMapping("teacher_profile")
 public class TeacherController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class TeacherController {
     public ResponseEntity<Teacher> registerUser(@RequestBody Teacher newTeacher) {
         Teacher teacher = new Teacher();
         HttpStatus status = HttpStatus.CONFLICT;
-        if(teacherService.findEmail(newTeacher.getEmail()).equals(null) && teacherService.findName(newTeacher.getFullName()).equals(null)) {
+        if(teacherService.findEmail(newTeacher.getEmail()).equals(null)){ //&& teacherService.findName(newTeacher.getFullName()).equals(null)) {
             teacher = teacherService.save(newTeacher);
             status  = HttpStatus.CREATED;
         }

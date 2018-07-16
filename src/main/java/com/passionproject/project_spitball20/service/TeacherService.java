@@ -23,9 +23,9 @@ public class TeacherService {
         return teacherRepository.findById(id).get();
     }
 
-    public Teacher findName(String fullName) {
-        return teacherRepository.findByName(fullName);
-    }
+//    public Teacher findName(String fullName) {
+//        return teacherRepository.findByName(fullName);
+//    }
 
     public Teacher findEmail(String email) {
         return teacherRepository.findByEmail(email);

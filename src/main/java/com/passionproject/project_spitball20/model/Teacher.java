@@ -54,4 +54,8 @@ public class Teacher {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFullName() {
+        return firstName + lastName;
+    }
 }
