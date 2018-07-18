@@ -1,6 +1,9 @@
 package com.passionproject.project_spitball20.model;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,6 +17,11 @@ public class Teacher {
     String lastName;
     String email;
     String password;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacherId")
+    private List<Rating> ratings;
+
 
     public Long getId() {
         return id;
@@ -57,5 +65,13 @@ public class Teacher {
 
     public String getFullName() {
         return firstName + lastName;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }

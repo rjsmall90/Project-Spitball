@@ -20,13 +20,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
     public User findEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-//    public User findName(String displayName) {
-//        return userRepository.findByName(displayName);
-//    }
 
     public User find(Long id) {
         return userRepository.findById(id).get();
