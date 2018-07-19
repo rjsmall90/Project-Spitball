@@ -13,9 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("teacher_profile")
+@CrossOrigin(origins = "http://localhost:8100")
 public class TeacherController {
 
     @Autowired
@@ -28,13 +29,27 @@ public class TeacherController {
     public ResponseEntity<Teacher> registerUser(@RequestBody Teacher newTeacher) {
         Teacher teacher = new Teacher();
         HttpStatus status = HttpStatus.CONFLICT;
-        if(teacherService.findEmail(newTeacher.getEmail()).equals(null)){ //&& teacherService.findName(newTeacher.getFullName()).equals(null)) {
+        if(teacherService.findEmail(newTeacher.getEmail()).equals(null)){
             teacher = teacherService.save(newTeacher);
             status  = HttpStatus.CREATED;
         }
 
         return new ResponseEntity<>(teacher, new HttpHeaders(), status);
 
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<Teacher> deleteRating(@RequestBody Teacher teacher) {
+        teacherService.delete(teacher);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ResponseEntity<Teacher> updateRating(@RequestBody Teacher teacher) {
+        HttpStatus httpStatus = HttpStatus.CREATED;
+        teacher = this.teacherService.update(teacher);
+
+        return new ResponseEntity<>(teacher, new HttpHeaders(), httpStatus);
     }
 
 }

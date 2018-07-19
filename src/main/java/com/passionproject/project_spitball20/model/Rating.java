@@ -1,5 +1,8 @@
 package com.passionproject.project_spitball20.model;
 
+import com.passionproject.project_spitball20.model.messages.Review;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 
@@ -13,6 +16,7 @@ public class Rating {
     Long teacherId;
 
     Integer rating;
+
 
     public Long getId() {
         return id;

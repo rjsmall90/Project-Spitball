@@ -28,5 +28,6 @@ public class RatingService {
         return ratingRepository.findById(id).get();
     }
 
+    public Object getAllRatings() { return ratingRepository.findAll(); }
 
 }

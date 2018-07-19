@@ -21,7 +21,7 @@ public class ReviewController {
     ReviewService reviewService;
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public ResponseEntity<Review> postMessage(@RequestBody Review newReview) {
+    public ResponseEntity<Review> postReview(@RequestBody Review newReview) {
         HttpStatus httpStatus = HttpStatus.CREATED;
         Review content = this.reviewService.save(newReview);
 
@@ -29,15 +29,15 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Review> updateMessage(@RequestBody Review review) {
+    public ResponseEntity<Review> updateReview(@RequestBody Review review) {
         HttpStatus httpStatus = HttpStatus.CREATED;
-        review = (Review) this.reviewService.update(review);
+        review = this.reviewService.update(review);
 
         return new ResponseEntity<>(review, new HttpHeaders(), httpStatus);
     }
 
     @RequestMapping(value = "/get_reviews", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllMessages() throws JsonProcessingException {
+    public ResponseEntity<?> getAllReviews() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         HttpStatus httpStatus = HttpStatus.CREATED;
         HttpHeaders header = new HttpHeaders();
@@ -49,7 +49,7 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResponseEntity<Review> deleteMessage(@RequestBody Review review) {
+    public ResponseEntity<Review> deleteReview(@RequestBody Review review) {
         reviewService.delete(review);
         return new ResponseEntity<>(HttpStatus.OK);
     }
