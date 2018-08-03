@@ -1,22 +1,19 @@
-package com.passionproject.project_spitball20.model;
+package com.passionproject.project_spitball20.model.ratings;
 
-import com.passionproject.project_spitball20.model.messages.Review;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
-
 @Entity
-public class Rating {
+public class SchoolRating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    Long teacherId;
+    @JoinColumn
+    Long schoolId;
 
     Integer rating;
-
 
     public Long getId() {
         return id;
@@ -26,12 +23,12 @@ public class Rating {
         this.id = id;
     }
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Integer getRating() {

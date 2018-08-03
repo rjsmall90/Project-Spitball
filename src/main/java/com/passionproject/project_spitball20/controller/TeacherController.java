@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("teacher_profile")
+@RequestMapping("teacher_service")
 @CrossOrigin(origins = "http://localhost:8100")
 public class TeacherController {
 
     @Autowired
     TeacherService teacherService;
 
-    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    public static final Logger logger = LoggerFactory.getLogger(TeacherController.class);
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<Teacher> registerUser(@RequestBody Teacher newTeacher) {
+    public ResponseEntity<Teacher> registerTeacher(@RequestBody Teacher newTeacher) {
         Teacher teacher = new Teacher();
         HttpStatus status = HttpStatus.CONFLICT;
-        if(teacherService.findEmail(newTeacher.getEmail()).equals(null)){
+        if(teacherService.findEmail(newTeacher.getEmail()) == (null)){
             teacher = teacherService.save(newTeacher);
             status  = HttpStatus.CREATED;
         }
@@ -38,14 +38,28 @@ public class TeacherController {
 
     }
 
+    @RequestMapping(value = "/find_all", method = RequestMethod.HEAD)
+    public ResponseEntity<?> getAllTeachers() {
+        HttpStatus status = HttpStatus.OK;
+        return new ResponseEntity<>(teacherService.findAll(), new HttpHeaders(), status);
+    }
+
+
+    @RequestMapping(value = "/find_teacher", method = RequestMethod.GET)
+    public ResponseEntity<Teacher> getTeacher(@RequestBody Teacher teacher) {
+        HttpStatus httpStatus = HttpStatus.OK;
+        teacher = teacherService.find(teacher.getId());
+        return new ResponseEntity<>(teacher, new HttpHeaders(), httpStatus);
+    }
+
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResponseEntity<Teacher> deleteRating(@RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> deleteTeacherProfile(@RequestBody Teacher teacher) {
         teacherService.delete(teacher);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Teacher> updateRating(@RequestBody Teacher teacher) {
+    public ResponseEntity<Teacher> updateTeacherProfile(@RequestBody Teacher teacher) {
         HttpStatus httpStatus = HttpStatus.CREATED;
         teacher = this.teacherService.update(teacher);
 

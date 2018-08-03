@@ -1,11 +1,10 @@
-package com.passionproject.project_spitball20.controller;
+package com.passionproject.project_spitball20.controller.ratings;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.passionproject.project_spitball20.model.Rating;
-import com.passionproject.project_spitball20.model.messages.Review;
-import com.passionproject.project_spitball20.service.RatingService;
+import com.passionproject.project_spitball20.model.ratings.TeacherRating;
+import com.passionproject.project_spitball20.service.ratings.TeacherRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,26 +15,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("ratings")
 @CrossOrigin(origins = "http://localhost:8100")
-public class RatingController {
+public class TeacherRatingController {
 
     @Autowired
-    RatingService ratingService;
+    TeacherRatingService ratingService;
 
     @RequestMapping(value = "/rate", method = RequestMethod.POST)
-    public ResponseEntity<Rating> newRating(@RequestBody Rating newRating) {
+    public ResponseEntity<TeacherRating> newRating(@RequestBody TeacherRating newRating) {
         HttpStatus httpStatus = HttpStatus.CREATED;
-        Rating rate = this.ratingService.save(newRating);
+        TeacherRating rate = this.ratingService.save(newRating);
 
         return new ResponseEntity<>(rate, new HttpHeaders(), httpStatus);
     }
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public ResponseEntity<Rating> deleteRating(@RequestBody Rating rating) {
+    public ResponseEntity<TeacherRating> deleteRating(@RequestBody TeacherRating rating) {
         ratingService.delete(rating);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Rating> updateRating(@RequestBody Rating rating) {
+    public ResponseEntity<TeacherRating> updateRating(@RequestBody TeacherRating rating) {
         HttpStatus httpStatus = HttpStatus.CREATED;
         rating = this.ratingService.update(rating);
 

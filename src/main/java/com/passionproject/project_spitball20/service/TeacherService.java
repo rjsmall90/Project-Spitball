@@ -5,6 +5,8 @@ import com.passionproject.project_spitball20.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeacherService {
 
@@ -32,4 +34,6 @@ public class TeacherService {
     }
 
 
+    public List<Teacher> findAll() { return teacherRepository.findAll();
+    }
 }

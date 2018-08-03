@@ -1,6 +1,9 @@
 package com.passionproject.project_spitball20.model;
 
+import com.passionproject.project_spitball20.model.messages.Review;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -8,17 +11,27 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long id;
+    private Long id;
 
-     String firstName;
+    String firstName;
 
-     String lastName;
+    String lastName;
 
-     String displayName;
+    String displayName;
 
-     String email;
+    String email;
 
-     String password;
+    String password;
+
+    @OneToMany
+    List<Review> reviews;
+
+    public User() {
+    }
+
+    public User(String displayName, String password, List<User> user) {
+        this.displayName = displayName; this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -67,4 +80,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
