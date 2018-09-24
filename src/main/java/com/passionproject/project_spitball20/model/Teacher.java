@@ -1,36 +1,47 @@
 package com.passionproject.project_spitball20.model;
 
-import com.passionproject.project_spitball20.model.messages.Review;
+import com.passionproject.project_spitball20.model.messages.Comment;
+import com.passionproject.project_spitball20.model.ratings.TeacherRating;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
-public class User {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     String firstName;
-
     String lastName;
-
-    String username;
-
     String email;
-
     String password;
 
-    @OneToMany
-    List<Review> reviews;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<TeacherRating> ratings;
 
-    public User() {
+    @OneToMany
+    private List<Comment> comments;
+
+    private Long schoolId;
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public User(String username, String password, List<User> user) {
-        this.username = username; this.password = password;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Long getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Long getId() {
@@ -57,14 +68,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -81,5 +84,15 @@ public class User {
         this.password = password;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
+    public List<TeacherRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<TeacherRating> ratings) {
+        this.ratings = ratings;
+    }
 }
